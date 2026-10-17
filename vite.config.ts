@@ -1,11 +1,13 @@
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   server: {
     port: 3001,
-    open: true,
+    strictPort: true,
   },
+  preview: { port: 3001, strictPort: true },
 })

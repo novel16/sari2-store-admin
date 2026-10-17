@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;550;600;650;700&family=Manrope:wght@400;500;600;650;700;750;800&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'DM Sans', 'Segoe UI', sans-serif;
+  --font-display: 'Manrope', 'DM Sans', sans-serif;
+  --color-canvas: #f4f6f5;
+  --color-ink: #253b32;
+  --color-brand: #275b49;
+  --color-sidebar: #142d27;
+}
+@layer base {
+  body {
+    @apply m-0 min-w-[320px] bg-canvas font-sans text-ink antialiased;
+  }
+  button,
+  select {
+    @apply cursor-pointer;
+  }
+  button:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+  button,
+  a,
+  input,
+  select {
+    @apply focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-brand;
+    -webkit-tap-highlight-color: transparent;
+  }
+  input,
+  select {
+    @apply min-w-0;
+  }
+  input[type='checkbox'] {
+    @apply accent-brand;
+  }
+  ::selection {
+    @apply bg-brand/15;
+  }
+}
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 max-w-full items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-semibold transition sm:min-h-10 sm:text-xs;
+  }
+  .btn-primary {
+    @apply border-brand bg-brand text-white shadow-sm hover:bg-[#1c4839];
+  }
+  .btn-secondary {
+    @apply border-slate-200 bg-white text-ink hover:border-brand/30 hover:bg-slate-50;
+  }
+  .icon-button {
+    @apply inline-flex size-11 shrink-0 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 sm:size-10;
+  }
+  .panel {
+    @apply min-w-0 rounded-2xl border border-[#e1e7e3] bg-white shadow-sm shadow-slate-200/20;
+  }
+  .field {
+    @apply flex min-w-0 flex-col gap-2 text-xs font-medium text-slate-600;
+  }
+  .input {
+    @apply min-h-11 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-base font-normal text-ink outline-none transition placeholder:text-slate-400 focus:border-brand/60 focus:ring-3 focus:ring-brand/5 sm:text-sm;
+  }
+  .eyebrow {
+    @apply text-[10px] font-semibold uppercase tracking-[.16em] text-slate-400;
+  }
+  .table-wrap {
+    @apply relative w-full overflow-x-auto;
+  }
+  .data-table {
+    @apply w-full min-w-[680px] border-collapse text-left text-xs;
+  }
+  .data-table th {
+    @apply border-y border-slate-100 bg-[#f8faf9] px-5 py-3 text-[10px] font-semibold uppercase tracking-wide text-slate-400;
+  }
+  .data-table td {
+    @apply border-b border-slate-100 px-5 py-4 align-middle;
+  }
+  .data-table tbody tr {
+    @apply transition hover:bg-slate-50/70;
+  }
+  .data-table tbody tr:last-child td {
+    @apply border-0;
+  }
+  .text-link {
+    @apply font-semibold text-brand underline-offset-4 hover:underline;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
