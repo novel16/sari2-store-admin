@@ -1,6 +1,18 @@
 import { useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Building2, LayoutDashboard, LogOut, ShieldCheck, Store, X, Layers } from 'lucide-react'
+import {
+  Building2,
+  LayoutDashboard,
+  LogOut,
+  ShieldCheck,
+  Store,
+  X,
+  Layers,
+  Users,
+  Settings,
+  History,
+  CalendarClock,
+} from 'lucide-react'
 import Brand from '../components/Brand'
 import { useAuth } from '../auth/useAuth'
 import { toApiError } from '../api/errors'
@@ -11,6 +23,10 @@ const navigation = [
   { path: '/accounts', label: 'Accounts', icon: Building2 },
   { path: '/stores', label: 'Stores', icon: Store },
   { path: '/plans', label: 'Plans', icon: Layers },
+  { path: '/subscriptions', label: 'Subscriptions', icon: CalendarClock },
+  { path: '/administrators', label: 'Administrators', icon: Users },
+  { path: '/activity', label: 'Activity log', icon: History },
+  { path: '/settings', label: 'Profile & security', icon: Settings },
 ]
 export default function Sidebar({ close }: { close: () => void }) {
   const { user, logout } = useAuth(),

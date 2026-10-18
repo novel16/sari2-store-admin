@@ -13,3 +13,12 @@ export interface LoginInput {
   password: string
   remember: boolean
 }
+export interface ResetPasswordInput {
+  email: string
+  token: string
+  password: string
+  password_confirmation: string
+}
+export interface AuthMessage {
+  message: string
+}

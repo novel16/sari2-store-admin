@@ -15,7 +15,9 @@ export default function AdminLayout() {
         ? 'Stores'
         : pathname.startsWith('/plans')
           ? 'Plans'
-          : 'Overview'
+          : pathname.startsWith('/subscriptions')
+            ? 'Subscriptions'
+            : 'Overview'
     document.title = `${label} · Sarisari Admin`
   }, [pathname])
   return (

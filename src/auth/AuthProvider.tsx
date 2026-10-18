@@ -23,11 +23,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(value)
         setError(null)
       }
+      return null
     } catch (failure) {
       if (current !== version.current) return
       const next = toApiError(failure)
       setUser(null)
       setError(next.status === 401 ? null : next)
+      return next.status === 401 ? null : next
     } finally {
       if (current === version.current) setLoading(false)
     }
@@ -36,11 +38,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     void load(++version.current)
     return invalidate
   }, [load, invalidate])
-  const refresh = useCallback(() => {
-    setLoading(true)
-    setError(null)
-    return load(++version.current)
-  }, [load])
+  const refresh = useCallback(
+    async (options?: { throwOnError?: boolean }) => {
+      setLoading(true)
+      setError(null)
+      const failure = await load(++version.current)
+      if (failure && options?.throwOnError) throw failure
+    },
+    [load],
+  )
   const login = useCallback(async (input: LoginInput) => {
     try {
       const value = await authApi.login(input)
@@ -64,9 +70,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null)
     setError(null)
   }, [])
+  const updateUser = useCallback((next: AdminUser) => {
+    if (!canAccessAdmin(next)) return
+    version.current++
+    setUser((current) => (current?.id === next.id ? next : current))
+  }, [])
   const value = useMemo(
-    () => ({ user, loading, error, refresh, login, logout }),
-    [user, loading, error, refresh, login, logout],
+    () => ({ user, loading, error, refresh, login, logout, updateUser }),
+    [user, loading, error, refresh, login, logout, updateUser],
   )
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

@@ -12,8 +12,18 @@ export default function AdminHeader({ open, onOpen }: { open: boolean; onOpen: (
         ? 'Stores'
         : pathname.startsWith('/plans')
           ? 'Plans'
-          : 'Overview'
-  const detail = /\/(accounts|stores|plans)\/(\d+|new)(?:\/subscription)?$/.test(pathname)
+          : pathname.startsWith('/administrators')
+            ? 'Administrators'
+            : pathname.startsWith('/subscriptions')
+              ? 'Subscriptions'
+              : pathname.startsWith('/settings')
+                ? 'Profile & security'
+                : pathname.startsWith('/activity')
+                  ? 'Activity log'
+                  : 'Overview'
+  const detail = /\/(accounts|stores|plans|administrators)\/(\d+|new)(?:\/subscription)?$/.test(
+    pathname,
+  )
   return (
     <header className="sticky top-0 z-30 flex min-h-20 items-center justify-between gap-3 border-b border-[#e1e7e3] bg-[#fbfcfa]/95 px-5 backdrop-blur sm:px-8">
       <div className="flex min-w-0 items-center gap-3">
@@ -37,7 +47,13 @@ export default function AdminHeader({ open, onOpen }: { open: boolean; onOpen: (
               <Link
                 className="hover:text-brand"
                 to={
-                  section === 'Accounts' ? '/accounts' : section === 'Plans' ? '/plans' : '/stores'
+                  section === 'Accounts'
+                    ? '/accounts'
+                    : section === 'Plans'
+                      ? '/plans'
+                      : section === 'Administrators'
+                        ? '/administrators'
+                        : '/stores'
                 }
               >
                 {section}
@@ -57,12 +73,13 @@ export default function AdminHeader({ open, onOpen }: { open: boolean; onOpen: (
           <ShieldCheck size={12} />
           Platform administrator
         </span>
-        <span
-          aria-label={user?.name}
+        <Link
+          to="/settings"
+          aria-label="My profile and security"
           className="grid size-9 shrink-0 place-items-center rounded-full bg-[#e7e9e1] text-[11px] font-semibold text-brand"
         >
           {initials(user?.name ?? '')}
-        </span>
+        </Link>
       </div>
     </header>
   )

@@ -14,7 +14,7 @@ export function safeReturnTo(value: unknown): string {
     const url = new URL(value, 'http://local.invalid')
     if (
       url.origin !== 'http://local.invalid' ||
-      !/^\/(dashboard|accounts(?:\/[1-9]\d*(?:\/subscription)?)?|stores(?:\/[1-9]\d*)?|plans(?:\/(?:new|[1-9]\d*))?)$/.test(
+      !/^\/(dashboard|settings|activity|subscriptions|administrators(?:\/(?:new|[1-9]\d*))?|accounts(?:\/[1-9]\d*(?:\/subscription)?)?|stores(?:\/[1-9]\d*)?|plans(?:\/(?:new|[1-9]\d*))?)$/.test(
         url.pathname,
       )
     )

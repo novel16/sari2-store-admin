@@ -5,8 +5,9 @@ export interface AuthState {
   user: AdminUser | null
   loading: boolean
   error: ApiError | null
-  refresh: () => Promise<void>
+  refresh: (options?: { throwOnError?: boolean }) => Promise<void>
   login: (input: LoginInput) => Promise<void>
   logout: () => Promise<void>
+  updateUser: (user: AdminUser) => void
 }
 export const AuthContext = createContext<AuthState | null>(null)

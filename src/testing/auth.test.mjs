@@ -35,7 +35,16 @@ test('only an active platform administrator can access the admin app', () => {
 })
 
 test('return paths only allow known internal admin pages', () => {
-  for (const path of ['/dashboard', '/accounts?status=suspended&page=2', '/stores/12#details'])
+  for (const path of [
+    '/dashboard',
+    '/accounts?status=suspended&page=2',
+    '/stores/12#details',
+    '/administrators',
+    '/administrators/new',
+    '/administrators/8',
+    '/settings',
+    '/activity?module=plans&cursor=opaque-value',
+  ])
     assert.equal(access.safeReturnTo(path), path)
   for (const path of [
     'https://evil.test',
@@ -44,6 +53,9 @@ test('return paths only allow known internal admin pages', () => {
     '/login',
     '/accounts/0',
     '/accounts/x',
+    '/administrators/0',
+    '/administrators/8/password',
+    '/settings/password',
     '/%2f%2fevil.test',
     '/stores\n/1',
     null,

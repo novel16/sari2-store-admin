@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import type { FormEvent } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -21,6 +22,7 @@ export default function LoginForm() {
     [pending, setPending] = useState(false),
     [error, setError] = useState<ApiError | null>(null)
   const busy = useRef(false)
+  const location = useLocation()
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (busy.current) return
@@ -88,6 +90,16 @@ export default function LoginForm() {
           <p className="mb-8 mt-3 text-sm leading-relaxed text-slate-500">
             Sign in with your platform administrator account.
           </p>
+          {location.state &&
+            typeof location.state === 'object' &&
+            location.state.passwordReset === true && (
+              <p
+                role="status"
+                className="mb-5 rounded-xl border border-brand/15 bg-brand/5 p-3 text-xs leading-relaxed text-brand"
+              >
+                Your password has been reset. Sign in with your new password.
+              </p>
+            )}
           <form onSubmit={(event) => void submit(event)} aria-busy={pending}>
             <fieldset disabled={pending} className="space-y-5">
               <label className="field">
@@ -133,10 +145,18 @@ export default function LoginForm() {
                   <small className="text-red-700">{error.fields.password[0]}</small>
                 )}
               </label>
-              <label className="flex min-h-7 items-center gap-2.5 text-xs text-slate-500">
-                <input type="checkbox" name="remember" className="size-4 rounded" />
-                Keep me signed in
-              </label>
+              <div className="flex items-center justify-between gap-3">
+                <label className="flex min-h-7 items-center gap-2.5 text-xs text-slate-500">
+                  <input type="checkbox" name="remember" className="size-4 rounded" />
+                  Keep me signed in
+                </label>
+                <Link
+                  to="/forgot-password"
+                  className="text-xs font-medium text-brand hover:underline"
+                >
+                  Forgot password?
+                </Link>
+              </div>
               {error && (
                 <p
                   role="alert"
