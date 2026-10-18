@@ -33,11 +33,12 @@ The command asks for a hidden password and confirmation. There are no default cr
 - Cookie/session login, remember-me, session restoration, protected routes, explicit logout, and access-denied recovery.
 - Live platform overview: account/store/user/administrator totals and statuses, daily account registrations for 30 Philippine calendar days, and recent accounts/stores.
 - Accounts and stores: server search, status filters, pagination, linked details, and stores scoped to an account.
+- Account/store availability: suspend/reactivate with a required reason, server review and explicit confirmation, paginated immutable status history, and same-request recovery. Parent account restrictions preserve individual store statuses. See [status management](../api/ADMIN_STATUS_SETUP.md).
 - Plans: database-backed pricing, create/edit/retire, publication validation, immutable term versions, change notes, and stale-edit protection. See [plan setup](../api/PLANS_SETUP.md).
 - Account subscriptions: manual Basic activation/renewal, verified payments or complimentary grants, server review/confirmation, scheduled periods, immutable history, and safe confirmation retries. See [subscription setup](../api/SUBSCRIPTIONS_SETUP.md).
 - Responsive navigation with keyboard dismissal/focus handling, plus loading, empty, error, retry, and missing-record views.
 
-Account/store profiles remain read-only, with a separate Manage subscription action in account details. Account suspension/reactivation, automatic billing, GCash, and private store operations remain future work. Plus/Pro activation stays unavailable.
+Account/store profile fields remain read-only, with separate status controls and a Manage subscription action in account details. Automatic billing, GCash, and private store operations remain future work. Plus/Pro activation stays unavailable.
 
 ## Source organization
 
@@ -60,6 +61,7 @@ src/
   platform/              # Platform types, URL filters, date/count formatting
   plans/                 # Plan API, types, exact price parsing and labels
   subscriptions/         # Account subscription API and types
+  statusManagement/      # Account/store review, confirmation, recovery and history
   testing/               # Node tests against actual TypeScript sources
 ```
 
@@ -77,6 +79,6 @@ npm.cmd run lint
 npm.cmd run build
 ```
 
-Tests cover administrator eligibility, safe return URLs, credentialed authentication endpoints, bounded CSRF retries, network failures, error normalization, directory inputs, and Philippine date formatting. Browser checks also cover real API login, filtering/pagination, details, access revocation, and mobile navigation. Strict TypeScript and the React hooks lint rules remain enabled.
+`npm test` discovers every `*.test.mjs` suite. Tests cover administrator eligibility, safe return URLs, credentialed authentication endpoints, bounded CSRF retries, network failures, error normalization, directory inputs, and Philippine date formatting. Browser checks also cover real API login, filtering/pagination, details, access revocation, and mobile navigation. Strict TypeScript and the React hooks lint rules remain enabled. Lazy pages have a recovery screen with page reload and dashboard actions if loading or rendering fails.
 
 The Prettier configuration defines source formatting. For deployment, configure the host to serve `index.html` for SPA routes, and configure Laravel's exact allowed origin, stateful domain, cookies, and HTTPS settings for the deployed hosts.

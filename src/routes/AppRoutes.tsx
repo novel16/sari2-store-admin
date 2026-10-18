@@ -1,7 +1,7 @@
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import RequireAdmin from '../auth/RequireAdmin'
-import PageLoading from '../components/PageLoading'
+import RouteBoundary from './RouteBoundary'
 import AdminLayout from '../layouts/AdminLayout'
 
 const LoginPage = lazy(() => import('../pages/auth/LoginPage'))
@@ -17,7 +17,7 @@ const AccountSubscriptionPage = lazy(() => import('../pages/subscriptions/Accoun
 
 export default function AppRoutes() {
   return (
-    <Suspense fallback={<PageLoading />}>
+    <RouteBoundary>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<LoginPage />} />
@@ -36,6 +36,6 @@ export default function AppRoutes() {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-    </Suspense>
+    </RouteBoundary>
   )
 }

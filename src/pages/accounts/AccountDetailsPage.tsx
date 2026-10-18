@@ -9,6 +9,7 @@ import { recordId } from '../../platform/directory'
 import { dateTime, number } from '../../platform/format'
 import type { AccountRecord } from '../../platform/types'
 import StoreDirectory from '../stores/StoreDirectory'
+import StatusWorkspace from '../../statusManagement/StatusWorkspace'
 
 export default function AccountDetailsPage() {
   const { accountId } = useParams(),
@@ -83,6 +84,17 @@ export default function AccountDetailsPage() {
               ]}
             />
           </section>
+          <StatusWorkspace
+            target={{
+              type: 'account',
+              id: account.id,
+              accountId: account.id,
+              name: account.name,
+              status: account.status,
+              ownerStatus: account.owner.status,
+            }}
+            onSaved={result.reload}
+          />
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-display text-lg font-bold">Stores in this account</h2>
             <Link

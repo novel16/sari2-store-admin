@@ -8,10 +8,17 @@ export function createSourceModule(baseUrl) {
     let source = await readFile(new URL(path, baseUrl), 'utf8')
     for (const [from, to] of Object.entries(substitutions)) source = source.replaceAll(from, to)
     let output = ts.transpileModule(source, {
-      compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2023 },
+      fileName: path,
+      compilerOptions: {
+        module: ts.ModuleKind.ESNext,
+        target: ts.ScriptTarget.ES2023,
+        jsx: ts.JsxEmit.ReactJSX,
+      },
     }).outputText
     for (const [from, to] of Object.entries(imports))
-      output = output.replaceAll(`'${from}'`, `'${to}'`)
+      output = output
+        .replaceAll(`'${from}'`, `'${to}'`)
+        .replaceAll(JSON.stringify(from), JSON.stringify(to))
     return `data:text/javascript;base64,${Buffer.from(output).toString('base64')}`
   }
 }

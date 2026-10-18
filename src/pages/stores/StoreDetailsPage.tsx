@@ -8,6 +8,7 @@ import { useApiQuery } from '../../hooks/useApiQuery'
 import { recordId } from '../../platform/directory'
 import { dateTime } from '../../platform/format'
 import type { StoreRecord } from '../../platform/types'
+import StatusWorkspace from '../../statusManagement/StatusWorkspace'
 
 export default function StoreDetailsPage() {
   const { storeId } = useParams(),
@@ -64,7 +65,7 @@ export default function StoreDetailsPage() {
               ]}
             />
           </section>
-          <section className="panel p-5 sm:p-7">
+          <section className="panel mb-8 p-5 sm:p-7">
             <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
               <h2 className="font-display text-base font-bold">Account & owner</h2>
               <Link
@@ -92,6 +93,18 @@ export default function StoreDetailsPage() {
               restrictions also apply to workspace access.
             </p>
           </section>
+          <StatusWorkspace
+            target={{
+              type: 'store',
+              id: store.id,
+              accountId: store.account.id,
+              name: store.name,
+              status: store.status,
+              parentStatus: store.account.status,
+              ownerStatus: store.account.owner.status,
+            }}
+            onSaved={result.reload}
+          />
         </>
       )}
     </>
