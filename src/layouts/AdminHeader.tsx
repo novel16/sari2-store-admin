@@ -14,13 +14,15 @@ export default function AdminHeader({ open, onOpen }: { open: boolean; onOpen: (
           ? 'Plans'
           : pathname.startsWith('/administrators')
             ? 'Administrators'
-            : pathname.startsWith('/subscriptions')
-              ? 'Subscriptions'
-              : pathname.startsWith('/settings')
-                ? 'Profile & security'
-                : pathname.startsWith('/activity')
-                  ? 'Activity log'
-                  : 'Overview'
+            : pathname.startsWith('/subscription-payments')
+              ? 'Subscription payments'
+              : pathname.startsWith('/subscriptions')
+                ? 'Subscriptions'
+                : pathname.startsWith('/settings')
+                  ? 'Profile & security'
+                  : pathname.startsWith('/activity')
+                    ? 'Activity log'
+                    : 'Overview'
   const detail = /\/(accounts|stores|plans|administrators)\/(\d+|new)(?:\/subscription)?$/.test(
     pathname,
   )

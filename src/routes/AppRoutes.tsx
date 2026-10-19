@@ -28,6 +28,9 @@ const ActivityPage = lazy(() => import('../pages/activity/ActivityPage'))
 const SubscriptionMonitoringPage = lazy(
   () => import('../pages/subscriptions/SubscriptionMonitoringPage'),
 )
+const SubscriptionPaymentsPage = lazy(
+  () => import('../pages/subscriptions/SubscriptionPaymentsPage'),
+)
 
 export default function AppRoutes() {
   return (
@@ -54,6 +57,7 @@ export default function AppRoutes() {
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/activity" element={<ActivityPage />} />
             <Route path="/subscriptions" element={<SubscriptionMonitoringPage />} />
+            <Route path="/subscription-payments" element={<SubscriptionPaymentsPage />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />
