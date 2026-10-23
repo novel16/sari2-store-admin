@@ -10,7 +10,7 @@ Copy-Item .env.example .env
 npm.cmd run dev
 ```
 
-Open `http://localhost:3001`. The development and preview servers require port **3001**; they fail if that port is occupied. The store app uses **3000**, and the API defaults to **8000**. Keep the same hostname (`localhost`) for all three.
+Open `http://localhost:3001`. The development and preview servers require port **3001**; they fail if that port is occupied. The store app uses **3000**, and the API origin must match its published port (**80** in this workstation's Sail setup; **8000** is the non-Docker fallback). Keep the same hostname (`localhost`) for all three.
 
 Environment variables are public build configuration:
 
@@ -43,6 +43,7 @@ After signing in, use **Administrators** to create additional independent admini
 - Account subscriptions: manual Basic activation/renewal, verified payments or complimentary grants, server review/confirmation, scheduled periods, immutable history, and safe confirmation retries. See [subscription setup](../api/SUBSCRIPTIONS_SETUP.md).
 - Subscription monitoring: cross-account search, state/account-status filters, summary cards, 7/30-day expiry windows, continuous prepaid coverage, scheduled renewals, and management shortcuts. See [monitoring setup](../api/SUBSCRIPTION_MONITORING_SETUP.md).
 - Activity log: read-only combined administrator, account/store status, plan-version, and subscription history; saved actor/target names, search, module/action/administrator/date filters, cursor navigation, and internal detail links. See [activity setup](../api/ADMIN_ACTIVITY_SETUP.md).
+- Website & SEO: structured public content, page metadata, image uploads, section order/visibility, saved draft preview, version-checked publication, and revision restore as draft. Public pricing comes from Plans. See [website setup](../api/WEBSITE_SETUP.md).
 - Responsive navigation with keyboard dismissal/focus handling, plus loading, empty, error, retry, and missing-record views.
 
 Account/store profile fields remain read-only, with separate status controls and a Manage subscription action in account details. Automatic billing, GCash, and private store operations remain future work. Plus/Pro activation stays unavailable.
@@ -64,6 +65,7 @@ src/
     plans/               # Catalog list, editor, form, version history
     subscriptions/       # Account periods, settlement form, review, history
     activity/            # Centralized platform activity page
+    website/             # Website editor and revision history
   components/            # Shared presentation and query states
   hooks/                 # Abortable query and debounce behavior
   platform/              # Platform types, URL filters, date/count formatting
@@ -74,6 +76,7 @@ src/
   administrators/        # Admin directory, creation/status APIs and recovery
   settings/              # Current administrator profile/password API
   activity/              # Audit filters, searchable actor picker, timeline and types
+  website/               # Content/SEO types and admin API
   testing/               # Node tests against actual TypeScript sources
 ```
 
@@ -94,6 +97,8 @@ npm.cmd test
 npm.cmd run lint
 npm.cmd run build
 ```
+
+On an 8 GB development machine, use `node --test --test-concurrency=1` and run each app's tests, lint, and build sequentially.
 
 `npm test` discovers every `*.test.mjs` suite. Tests cover administrator eligibility, safe return URLs, credentialed authentication endpoints, bounded CSRF retries, network failures, error normalization, directory inputs, and Philippine date formatting. Browser checks also cover real API login, filtering/pagination, details, access revocation, and mobile navigation. Strict TypeScript and the React hooks lint rules remain enabled. Lazy pages have a recovery screen with page reload and dashboard actions if loading or rendering fails.
 

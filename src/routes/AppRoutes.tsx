@@ -24,6 +24,7 @@ const AdministratorDetailsPage = lazy(
   () => import('../pages/administrators/AdministratorDetailsPage'),
 )
 const SettingsPage = lazy(() => import('../pages/settings/SettingsPage'))
+const WebsitePage = lazy(() => import('../pages/website/WebsitePage'))
 const ActivityPage = lazy(() => import('../pages/activity/ActivityPage'))
 const SubscriptionMonitoringPage = lazy(
   () => import('../pages/subscriptions/SubscriptionMonitoringPage'),
@@ -55,6 +56,7 @@ export default function AppRoutes() {
             <Route path="/administrators/new" element={<CreateAdministratorPage />} />
             <Route path="/administrators/:administratorId" element={<AdministratorDetailsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/website" element={<WebsitePage />} />
             <Route path="/activity" element={<ActivityPage />} />
             <Route path="/subscriptions" element={<SubscriptionMonitoringPage />} />
             <Route path="/subscription-payments" element={<SubscriptionPaymentsPage />} />

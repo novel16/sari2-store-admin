@@ -13,6 +13,7 @@ import {
   History,
   CalendarClock,
   QrCode,
+  Globe,
 } from 'lucide-react'
 import Brand from '../components/Brand'
 import { useAuth } from '../auth/useAuth'
@@ -24,6 +25,7 @@ const navigation = [
   { path: '/accounts', label: 'Accounts', icon: Building2 },
   { path: '/stores', label: 'Stores', icon: Store },
   { path: '/plans', label: 'Plans', icon: Layers },
+  { path: '/website', label: 'Website & SEO', icon: Globe },
   { path: '/subscriptions', label: 'Subscriptions', icon: CalendarClock },
   { path: '/subscription-payments', label: 'Subscription payments', icon: QrCode },
   { path: '/administrators', label: 'Administrators', icon: Users },
